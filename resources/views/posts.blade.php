@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Blog</title>
-    <link rel="stylesheet" href="/app.css">
-</head>
 
-<body>
-    <?php foreach ($posts as $post): ?>
+<x-layout>
+    <x-banner attribute="font-size: 2em;">
+        My Blog
+    </x-banner>
+
+    @foreach ($posts as $post)
 
     <article>
 
         <h1><a href='/posts/<?=$post->slug?>'><?=$post->title?></a></h1>
-        <h2><?=$post->date?></h2>
+        {{--<h2><?=$post->date?></h2>--}}
         <?=$post->excerpt?>
     </article>
-    <?php endforeach; ?>
+    @endforeach
+</x-layout>
 
-</body>
-
-</html>

@@ -40,31 +40,44 @@ class Post
 
     public static function find($slug){
 
-
         return static::all()->firstWhere('slug',$slug);
 
-//        $path = resource_path('/posts/'.$slug.'.html');
-//        if (!file_exists($path)){
-//            throw new ModelNotFoundException();
-////            dd($slug);
-//        }
-//        return  cache()->remember("post.{$slug}",60, function()use($path){
-//           return file_get_contents($path);
-//        });
+
+    }
+
+
+
+
+    public static function findOrFail($slug){
+
+
+        $post= static::find($slug);
+
+        if(!$post){
+            throw new ModelNotFoundException();
+        }
+
+        return $post;
+
     }
 
     public  static  function  all(){
 
+        return cache()->rememberForever('posts.all',function (){
+            return collect(File::files(resource_path('/posts')))->map(function($file){
+                $document=YamlFrontMatter::parseFile($file);
+                return new Post(
+                    $document->title,
+                    $document->excerpt,
+                    $document->date,
+                    $document->body(),
+                    $file->getFilenameWithoutExtension());
+            })->sortByDesc('date');
 
-       return collect(File::files(resource_path('/posts')))->map(function($file){
-            $document=YamlFrontMatter::parseFile($file);
-            return new Post(
-                $document->title,
-                $document->excerpt,
-                $document->date,
-                $document->body(),
-                $file->getFilenameWithoutExtension());
         });
+
+
+
 
 //        $files=File::files(resource_path('/posts'));
 ////        ddd($files);

@@ -15,8 +15,11 @@ use \App\Models\Post;
 */
 Route::get('/posts/{post}', function ($slug) {
 
-    return view('post', ['post'=> Post::find($slug)]);
-})->where('post','[A-z-\_]+');
+    $post = Post::findOrFail($slug);
+
+//    ddd($post);
+    return view('post', ['post'=> $post]);
+});
 
 
 
