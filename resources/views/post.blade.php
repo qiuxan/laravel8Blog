@@ -7,7 +7,10 @@
 <body>
 
     <article>
-        <?=$post?>
+        <h1><?=$post->title?></h1>
+
+        <?php //dd($post)?>
+        <?=$post->body?>
     </article>
 
     <a href="/">Go back</a>
