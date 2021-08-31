@@ -13,11 +13,9 @@ use \App\Models\Post;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/posts/{post}', function ($slug) {
+Route::get('/posts/{post:slug}', function (Post $post) {//Post::where('slug',$post->slug)->first()
 
-    $post = Post::findOrFail($slug);
 
-//    ddd($post);
     return view('post', ['post'=> $post]);
 });
 

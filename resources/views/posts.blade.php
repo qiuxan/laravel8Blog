@@ -10,6 +10,8 @@
 
         <h1><a href='/posts/<?=$post->slug?>'><?=$post->title?></a></h1>
         {{--<h2><?=$post->date?></h2>--}}
+        <p><a href="#">{{$post->category->name}}</a></p>
+
         <?=$post->excerpt?>
     </article>
     @endforeach
