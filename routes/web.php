@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Models\Post;
-
+use \App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,12 +31,18 @@ Route::get('test',function(){
 });
 
 Route::get('/',function(){
-
-    $posts=Post::all();
-//    $posts=
-
+//    $posts=Post::all();
+    $posts=Post::with('category')->get();
     return view('posts',[
         'posts'=> $posts
     ]);
+});
+
+
+Route::get('/category/{category:slug}', function (Category $category) {
+
+//    ddd();
+
+    return view('posts', ['posts'=> $category->posts]);
 });
 

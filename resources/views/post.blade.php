@@ -2,7 +2,7 @@
 <x-layout>
     <x-banner attribute="">
         <h1>{{$post->title}}</h1>
-        <p><a href="#">{{$post->category->name}}</a></p>
+        <p><a href="/category/{{$post->category->slug}}">{{$post->category->name}}</a></p>
     </x-banner>
     <article>
         <?php //dd($post)?>
