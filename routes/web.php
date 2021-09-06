@@ -32,23 +32,25 @@ Route::get('test',function(){
 });
 
 Route::get('/',function(){
-//    $posts=Post::all();
-    $posts=Post::latest()->get();
     return view('posts',[
-        'posts'=> $posts
+        'posts'=> Post::latest()->get(),
+        'categories'=>Category::all()
+
     ]);
-});
+})->name('home');
 
 
 Route::get('/category/{category:slug}', function (Category $category) {
-
-//    ddd();
-
-    return view('posts', ['posts'=> $category->posts]);
-});
+    return view('posts', [
+        'posts'=> $category->posts,
+        'categories'=>Category::all(),
+        'currentCategory'=>$category
+    ]);
+})->name('category');
 
 Route::get('authors/{user:username}',function(User $user){
     return view('posts',[
-        'posts'=>$user->posts
+        'posts'=>$user->posts,
+        'categories'=>Category::all()
     ]);
 });

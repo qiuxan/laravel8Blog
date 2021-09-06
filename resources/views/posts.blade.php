@@ -1,19 +1,14 @@
 
 <x-layout>
-    <x-banner attribute="font-size: 2em;">
-        My Blog
-    </x-banner>
 
-    @foreach ($posts as $post)
+    @include('_post-header')
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
 
-    <article>
-
-        <h1><a href='/posts/<?=$post->slug?>'><?=$post->title?></a></h1>
-        {{--<h2><?=$post->date?></h2>--}}
-        <p>Written by <a href="/authors/{{$post->author->username}}">{{$post->author->name}}</a> in <a href="/category/{{$post->category->slug}}">{{$post->category->name}}</a></p>
-
-        <?=$post->excerpt?>
-    </article>
-    @endforeach
+        @if($posts->count())
+            <x-posts-grid :posts="$posts" />
+        @else
+            <div> No post yet please come back later</div>
+        @endif
+    </main>
 </x-layout>
 
