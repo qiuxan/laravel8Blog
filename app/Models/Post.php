@@ -38,9 +38,12 @@ class Post extends Model
 
         $query->when(isset($filter['search'])?$filter['search']:false,function ($query,$search){
 //            dd($search);
-            $query
+            $query->where(function ($query)use ($search){
+                return $query
                 ->where('title','like','%'.$search.'%')
                 ->orWhere('body','like','%'.$search.'%');
+            });
+//
         });
 
         $query->when($filter['author']??false,function ($query,$author){

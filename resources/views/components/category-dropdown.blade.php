@@ -12,20 +12,14 @@
         All
     </x-dropdown-item>
 
-{{--    {{ddd($categories[1]->id===$currentCategory->id)}}--}}
-
-
     @foreach($categories as $category)
 
 
 
 
         <x-dropdown-item
-                href="/?category={{$category->slug}}"
-                {{--:active="(isset($currentCategory) && $currentCategory->id === $category->id)"--}}
+                href="/?category={{$category->slug}}&{{http_build_query(request()->except('category'))}}"
                 :active='$category->is($currentCategory)'
-
-                 {{--:active="request()->is('categories/'.$category->slug)"--}}
         >
             {{ucwords($category->name)}}
         </x-dropdown-item>
