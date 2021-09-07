@@ -18,19 +18,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create([
-            'name' => 'John Doe'
-        ]);
-
-        Post::factory(10)->create([
-            'user_id' => $user->id
-        ]);
-
-
 
 //        User::truncate();
 //        Category::truncate();
 //        Post::truncate();
+
+
+        Post::factory(3)->create();
+
+        $user = User::factory()->create([
+            'name' => 'John Doe'
+        ]);
+
+        $category=Category::factory()->create();
+
+//        print_r($category);
+
+        Post::factory(3)->create([
+            'user_id' => $user->id
+        ]);
+
+        Post::factory(3)->create([
+            'category_id' => $category->id
+        ]);
+
+
+
+
+
 
 //        $user=User::factory()->create(['name'=>'johndoe']);
 //        $user2=User::factory()->create();

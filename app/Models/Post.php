@@ -21,4 +21,24 @@ class Post extends Model
     public function author(){
         return $this->belongsTo(user::class,'user_id');
     }
+
+    public function scopeFilter($query,array $filter){
+//        dd();
+//        $query->when($filter['search']??false,function ($query,$search){
+////            dd($search);
+//            $query
+//                ->where('title','like','%'.$search.'%')
+//                ->orWhere('body','like','%'.$search.'%');
+//        });
+
+        $query->when(isset($filter['search'])?$filter['search']:false,function ($query,$search){
+//            dd($search);
+            $query
+                ->where('title','like','%'.$search.'%')
+                ->orWhere('body','like','%'.$search.'%');
+        });
+
+
+
+    }
 }

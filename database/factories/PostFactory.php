@@ -25,12 +25,12 @@ class PostFactory extends Factory
     {
         return [
 
-//            'user_id'=>User::factory()->create()->id,
+            'user_id'=>User::factory()->create()->id,
             'category_id'=>Category::factory()->create()->id,
             'slug'=>$this->faker->slug,
             'title'=>$this->faker->sentence,
-            'excerpt'=>$this->faker->sentence,
-            'body'=>$this->faker->paragraph,
+            'excerpt'=>'<p>'.implode('</p></p>', $this->faker->paragraphs(2)).'</p>',
+            'body'=>'<p>'.implode('</p></p>', $this->faker->paragraphs(6)).'</p>',
             //
         ];
     }
