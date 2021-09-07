@@ -25,8 +25,6 @@ class Post extends Model
     public function scopeFilter($query,array $filter){
 
         $query->when($filter['category']??false,function ($query,$category){
-//                dd($category);
-
             $query->whereHas('category',function ($query)use ($category){return $query->where('categories.slug',$category);});
 //            $query->whereExists(
 //                function ($query)use ($category){
@@ -36,9 +34,6 @@ class Post extends Model
 //                        ->where('categories.slug',$category);
 //                }
 //            );
-
-
-//            dd($query->toSql());
         });
 
         $query->when(isset($filter['search'])?$filter['search']:false,function ($query,$search){
@@ -48,7 +43,11 @@ class Post extends Model
                 ->orWhere('body','like','%'.$search.'%');
         });
 
+        $query->when($filter['author']??false,function ($query,$author){
+            $query->whereHas('author',function ($query)use($author){
+                return $query->where('username',$author);
+            });
 
-
+        });
     }
 }
