@@ -15,11 +15,10 @@
                     >
                         {{isset($currentCategory)? ucwords($currentCategory->name):'Categories'}}
 
-
                         <x-icon name="down-arrow" class="absolute pointer-events-none" style="right: 12px;"/>
                     </button>
                 </x-slot>
-                <x-dropdown-item href="/" :active="request()->routeIs('home')">
+                <x-dropdown-item href="/" :active="!$currentCategory" >
                     All
                 </x-dropdown-item>
 
@@ -27,8 +26,8 @@
                 @foreach($categories as $category)
 
                     <x-dropdown-item
-                        href="/category/{{$category->slug}}"
-                        :active="request()->is('category/'.$category->slug)"
+                        href="/?category={{$category->slug}}"
+                        :active='$category->is($currentCategory)'
                     >
                         {{ucwords($category->name)}}
                     </x-dropdown-item>
@@ -61,31 +60,9 @@
         {{--</div>--}}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- Search -->
         <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
-            <form method="GET" action="#">
+            <form method="GET" action="/">
                 <input type="text" name="search" placeholder="Find something"
                        class="bg-transparent placeholder-black font-semibold text-sm"
                        value="{{request('search')?request('search'):''}}"

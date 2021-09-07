@@ -23,13 +23,23 @@ class Post extends Model
     }
 
     public function scopeFilter($query,array $filter){
-//        dd();
-//        $query->when($filter['search']??false,function ($query,$search){
-////            dd($search);
-//            $query
-//                ->where('title','like','%'.$search.'%')
-//                ->orWhere('body','like','%'.$search.'%');
-//        });
+
+        $query->when($filter['category']??false,function ($query,$category){
+//                dd($category);
+
+            $query->whereHas('category',function ($query)use ($category){return $query->where('categories.slug',$category);});
+//            $query->whereExists(
+//                function ($query)use ($category){
+//                    return $query
+//                        ->from('categories')
+//                        ->whereColumn('categories.id', 'posts.category_id')
+//                        ->where('categories.slug',$category);
+//                }
+//            );
+
+
+//            dd($query->toSql());
+        });
 
         $query->when(isset($filter['search'])?$filter['search']:false,function ($query,$search){
 //            dd($search);
