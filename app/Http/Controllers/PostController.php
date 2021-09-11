@@ -19,6 +19,8 @@ class PostController extends Controller
     }
 
     public function show(Post $post){
+
+//            return $post->comments[0]->author;
             return view('posts.show', ['post'=> $post]);
     }
 }

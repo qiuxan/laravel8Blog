@@ -18,6 +18,11 @@ class Post extends Model
         return $this->belongsTo(category::class);
     }
 
+    public function comments(){
+
+        return $this->hasMany(comment::class);
+    }
+
     public function author(){
         return $this->belongsTo(user::class,'user_id');
     }
