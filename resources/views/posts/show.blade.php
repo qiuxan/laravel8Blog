@@ -44,6 +44,9 @@
                 </div>
 
                 <section class="col-span-8 col-start-5 mt-10 space-y-6ph">
+
+
+                    @include('posts._add-comment')
                     @if(isset($post->comments))
                         @foreach($post->comments as $comment)
                             <x-post-comment :comment="$comment"/>

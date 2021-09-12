@@ -4,10 +4,38 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\PostController;
 use \App\Http\Controllers\RegisterController;
 use \App\Http\Controllers\SessionsController;
+use \App\Http\Controllers\PostCommentController;
 
+Route::get('ping',function (){
+
+//    require_once('/path/to/MailchimpMarketing/vendor/autoload.php');
+
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us5'
+    ]);
+
+
+
+    $response = $mailchimp->lists->addListMember('fa6e3a67d8', [
+        "email_address" => "qiuxan@qq.com",
+        "status" => "subscribed",
+    ]);
+
+
+//    $response = $mailchimp->ping->get();
+
+
+    ddd($response);
+
+});
 
 Route::get('/',[PostController::class,'index'])->name('home');
+
 Route::get('/posts/{post:slug}', [PostController::class,'show']);
+Route::post('/posts/{post:slug}/comments', [PostCommentController::class,'store']);
 
 
 Route::get('/register',[RegisterController::class,'register'])->middleware('guest');

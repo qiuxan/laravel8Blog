@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index(){
 //        dd();
         return view('posts.index',[
-            'posts'=> Post::latest()->filter(request(['search','category','author']))->paginate(5),
+            'posts'=> Post::latest()->filter(request(['search','category','author']))->paginate(9),
             'categories'=>Category::all(),
 
         ]);
@@ -23,4 +23,6 @@ class PostController extends Controller
 //            return $post->comments[0]->author;
             return view('posts.show', ['post'=> $post]);
     }
+
+
 }

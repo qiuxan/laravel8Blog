@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    public $guarded=[];
+
     public function author(){
         return $this->belongsTo(user::class,'user_id');
     }

@@ -1,9 +1,8 @@
 @props(['comment'])
 
-{{--{{dd()}}--}}
-<article class="flex bg-gray-100 border border-gray-200 rounded-xl p-6 space-x-4 mt-6">
+<x-panel class="flex bg-gray-50 ">
     <div class="flex-shrink-0">
-        <img src="https://i.pravatar.cc/60?u={{$comment->id}}" alt="" width="60" height="60" class="rounded-xl">
+        <img src="https://i.pravatar.cc/60?u={{$comment->user_id}}" alt="" width="60" height="60" class="rounded-xl">
     </div>
     <div>
         <header class="mb-4">
@@ -19,6 +18,8 @@
         </p>
 
     </div>
-</article>
+</x-panel>
+{{--<article class=" border border-gray-200 rounded-xl p-6 space-x-4 mt-6">--}}
+    {{----}}
+{{--</article>--}}
 
-{{--@endif--}}
