@@ -5,47 +5,26 @@ use \App\Http\Controllers\PostController;
 use \App\Http\Controllers\RegisterController;
 use \App\Http\Controllers\SessionsController;
 use \App\Http\Controllers\PostCommentController;
+use \App\Http\Controllers\NewsletterController;
+use \App\Services\Newsletter;
+use \Illuminate\Validation\ValidationException;
 
-Route::get('ping',function (){
+Route::post('newsletter', NewsletterController::class);
 
-//    require_once('/path/to/MailchimpMarketing/vendor/autoload.php');
+Route::get('/', [PostController::class, 'index'])->name('home');
 
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us5'
-    ]);
-
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+Route::post('/posts/{post:slug}/comments', [PostCommentController::class, 'store']);
 
 
-    $response = $mailchimp->lists->addListMember('fa6e3a67d8', [
-        "email_address" => "qiuxan@qq.com",
-        "status" => "subscribed",
-    ]);
+Route::get('/register', [RegisterController::class, 'register'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
+Route::get('/login', [SessionsController::class, 'create'])->middleware('guest');
 
-//    $response = $mailchimp->ping->get();
+Route::post('/sessions', [SessionsController::class, 'store'])->middleware('guest');
 
-
-    ddd($response);
-
-});
-
-Route::get('/',[PostController::class,'index'])->name('home');
-
-Route::get('/posts/{post:slug}', [PostController::class,'show']);
-Route::post('/posts/{post:slug}/comments', [PostCommentController::class,'store']);
-
-
-Route::get('/register',[RegisterController::class,'register'])->middleware('guest');
-Route::post('/register',[RegisterController::class,'store'])->middleware('guest');
-
-Route::get('/login',[SessionsController::class,'create'])->middleware('guest');
-
-Route::post('/sessions',[SessionsController::class,'store'])->middleware('guest');
-
-Route::post('/logout',[SessionsController::class,'destroy'])->middleware('auth');
+Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 
 
