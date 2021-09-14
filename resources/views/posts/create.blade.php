@@ -53,13 +53,13 @@
 
 
                 <div class="mb-6">
-                    <label for="category"
+                    <label for="category_id"
                            class="block mb-2 uppercase font-bold text-xs text-gray-700">Category</label>
                     <select
 
                             class="border border-gray-400 p2 w-full "
-                            name="category"
-                            id="category"
+                            name="category_id"
+                            id="category_id"
 
                     >
                         @php
@@ -69,7 +69,7 @@
                         @foreach($categories as  $category)
                             <option
                                     value="{{$category->id}}"
-                                    @if(old('category') == $category->id) selected @endif
+                                    @if(old('category_id') == $category->id) selected @endif
                             >
                                 {{ucwords($category->name)}}
 

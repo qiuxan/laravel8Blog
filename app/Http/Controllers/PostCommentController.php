@@ -20,8 +20,6 @@ class PostCommentController extends Controller
                 'body.required'=>'Comment cannot be empty.',
                 'body.min:7'=>'Comment should be more than 7 letters.'
 
-
-
         ]);
 
 
