@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Services\Newsletter;
 use Illuminate\Support\ServiceProvider;
 use MailchimpMarketing\ApiClient;
+use Illuminate\Contracts\Routing\ResponseFactory;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        app()->bind('foo',function(){return 'bar';});
+
         //
 //        app()->bind(Newsletter::class,function(){
 //
@@ -35,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+
     }
 }
