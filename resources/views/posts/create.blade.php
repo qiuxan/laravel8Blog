@@ -1,100 +1,61 @@
 <x-layout>
-    <section class="px-6 py-8">
-        <x-panel class="max-w-sm mx-auto">
-            <form action="/admin/posts" method="POST">
 
-                @csrf
-                <div class="mb-6">
-                    <label for="title"
-                           class="block mb-2 uppercase font-bold text-xs text-gray-700">title</label>
-                    <input
-                            type="text3"
-                            class="border border-gray-400 p2 w-full"
-                            name="title"
-                            id="title"
-                            value="{{old('title')}}"
+    <x-setting heading="Publish New Post">
 
-                    >
-                    @error('title')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
+        <form action="/admin/posts" method="POST" enctype="multipart/form-data">
 
-                <div class="mb-6">
-                    <label for="excerpt"
-                           class="block mb-2 uppercase font-bold text-xs text-gray-700">excerpt</label>
-                    <textarea
-                            class="border border-gray-400 p2 w-full"
-                            name="excerpt"
-                            id="excerpt"
+            @csrf
 
-                    >{{old('excerpt')}}</textarea>
-                    @error('excerpt')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
+            <x-form.input name="title"/>
 
-                <div class="mb-6">
-                    <label for="body"
-                           class="block mb-2 uppercase font-bold text-xs text-gray-700">body</label>
-                    <textarea
-                            class="border border-gray-400 p2 w-full"
-                            name="body"
-                            id="body"
+            <x-form.input name="thumbnail" type="file"/>
 
-                    >{{old('body')}}</textarea>
-                    @error('body')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
+            <x-form.textarea name="excerpt"/>
+
+            <x-form.textarea name="body"/>
 
 
-                {{--{{ddd($categories)}}--}}
+            <div class="mb-6">
+                <label for="category_id"
+                       class="block mb-2 uppercase font-bold text-xs text-gray-700">Category</label>
+                <select
 
+                        class="border border-gray-400 p2 w-full "
+                        name="category_id"
+                        id="category_id"
 
-                <div class="mb-6">
-                    <label for="category_id"
-                           class="block mb-2 uppercase font-bold text-xs text-gray-700">Category</label>
-                    <select
+                >
+                    @php
+                        $categories=\App\Models\Category::all();
+                    @endphp
 
-                            class="border border-gray-400 p2 w-full "
-                            name="category_id"
-                            id="category_id"
+                    @foreach($categories as  $category)
+                        <option
+                                value="{{$category->id}}"
+                                @if(old('category_id') == $category->id) selected @endif
+                        >
+                            {{ucwords($category->name)}}
 
-                    >
-                        @php
-                            $categories=\App\Models\Category::all();
-                        @endphp
-
-                        @foreach($categories as  $category)
-                            <option
-                                    value="{{$category->id}}"
-                                    @if(old('category_id') == $category->id) selected @endif
-                            >
-                                {{ucwords($category->name)}}
-
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('category')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
-
-
-                <x-submit-button>Publish</x-submit-button>
-
-            </form>
-
-            @if($errors->any())
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li class="text-red-500 text-xs">{{$error}}</li>
+                        </option>
                     @endforeach
-                </ul>
-            @endif
+                </select>
+                @error('category')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
 
 
-        </x-panel>
-    </section>
+            <x-submit-button>Publish</x-submit-button>
+
+        </form>
+
+        @if($errors->any())
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li class="text-red-500 text-xs">{{$error}}</li>
+                @endforeach
+            </ul>
+        @endif
+
+    </x-setting>
 </x-layout>

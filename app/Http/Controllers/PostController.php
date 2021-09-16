@@ -43,6 +43,10 @@ class PostController extends Controller
     {
 
 
+//        return $path;
+//        ddd(request()->file('thumbnail'));
+//        ddd(request()->all());
+
         $attributes = request()->all();
         $attributes['slug'] = \Str::slug($attributes['title']);
         $validator = Validator::make($attributes, [
@@ -50,7 +54,8 @@ class PostController extends Controller
             'slug' => ['required', Rule::unique('posts', 'slug')],
             'excerpt' => 'required',
             'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'thumbnail'=>'required|image'
         ]);
         if ($validator->fails()) {
             $messages = $validator->errors()->messages();
@@ -63,8 +68,13 @@ class PostController extends Controller
             }
             return redirect()->back()->withInput()->withErrors($messages);
         }
+
         $attributes['user_id'] = auth()->id();
         unset($attributes['_token']);
+
+
+        $path=request()->file('thumbnail')->store('thumbnails');
+        $attributes['thumbnail']=$path;
         $post = Post::create($attributes);
         return redirect('/posts/' . $post->slug);
 

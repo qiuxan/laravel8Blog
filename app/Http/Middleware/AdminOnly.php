@@ -19,7 +19,7 @@ class AdminOnly
       if(auth()->guest()){
             abort(403);
         }
-        if(auth()->user()->username!=='Hans'){
+        if(auth()->user()->username!=='qiuxan'){
             abort(403);
         }
         return $next($request);
