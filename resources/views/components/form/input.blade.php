@@ -7,7 +7,8 @@
             class="border border-gray-200 p2 w-full rounded"
             name="{{$name}}"
             id="{{$name}}"
-            value="{{old($name)}}"
+            {{ $attributes }}
+            {{ $attributes(['value' => old($name)]) }}
 
     >
 

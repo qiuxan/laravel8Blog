@@ -8,7 +8,7 @@
             name="{{$name}}"
             id="{{$name}}"
 
-    >{{old($name)}}</textarea>
+    >{{$slot ?? old($name)}}</textarea>
     <x-form.error errorName="{{$name}}"/>
 </div>
 
